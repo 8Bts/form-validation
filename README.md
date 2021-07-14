@@ -10,10 +10,6 @@
 - RSpec
 - Sqlite3
 
-## Live Demo
-
-[Heroku](https://book-store-8bts.herokuapp.com)
-
 ## Setup
 
   If you want to try this application locally, run the following commands below:
