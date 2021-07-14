@@ -1,25 +1,39 @@
-# form-validation
-# README
+# About Project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+  This project is about simple back-end form validations.
 
-Things you may want to cover:
 
-* Ruby version
+## Built With
 
-* System dependencies
+- Ruby   3.0.1
+- Rails  6.1.4
+- RSpec
+- Sqlite3
 
-* Configuration
+## Live Demo
 
-* Database creation
+[Heroku](https://book-store-8bts.herokuapp.com)
 
-* Database initialization
+## Setup
 
-* How to run the test suite
+  If you want to try this application locally, run the following commands below:
 
-* Services (job queues, cache servers, search engines, etc.)
+  1. Clone the project using `git clone https://github.com/8Bts/form-validation` command.
 
-* Deployment instructions
+  2. `$ cd form-validation`.
 
-* ...
+  3. `$ bundle install`.
+
+  4. `$ rails server`.
+
+## Test
+
+  This application tested using RSpec. You can run the tests simply with `$ rspec` command
+
+## Author
+
+👤 **Rashid Mammadli**
+
+- Github: [8Bts](https://github.com/8Bts)
+- Linkedin: [Rashid Mammadli](https://www.linkedin.com/in/rashidmammadli/)
+- Email: mcmizze@yahoo.com
