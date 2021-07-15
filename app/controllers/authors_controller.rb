@@ -8,7 +8,7 @@ class AuthorsController < ActionController::Base
   end
 
   def create
-    @author = Author.new(author_params)
+    @author = Author.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email])
     uri = URI.parse('https://www.boredapi.com/api/activity') # simple API returning some random activity
     if @author.valid?
       Thread.new do
@@ -30,9 +30,5 @@ class AuthorsController < ActionController::Base
         # puts response
       end
     end
-  end
-
-  def author_params
-    params.require(:author).permit(:first_name, :last_name, :email)
   end
 end

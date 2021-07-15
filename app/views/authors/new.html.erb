@@ -1,9 +1,13 @@
-<%= form_for @author do |f| %>
-<%= f.label :first_name, 'First Name' %>
-<%= f.text_field :first_name %>
-<%= f.label :last_name, 'Last Name' %>
-<%= f.text_field :last_name %>
-<%= f.label :email, 'Email' %>
-<%= f.text_field :email %>
-<button type="submit">Submit</button>
+<%= form_tag '/authors' do %>
+  <%=label_tag 'first_name' %>
+  <%=text_field_tag 'first_name' %>
+
+  <%=label_tag 'last_name' %>
+  <%=text_field_tag 'last_name' %>
+
+  <%=label_tag 'email' %>
+  <%=text_field_tag 'email' %>
+
+  <%= submit_tag 'Submit' %>
 <% end %>
+<div>1</div>
