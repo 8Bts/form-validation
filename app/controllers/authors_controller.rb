@@ -12,6 +12,11 @@ class AuthorsController < ActionController::Base
 
     @author = Author.new(l_params)
 
-    RequestJob.perform_later l_params if @author.valid?
+    if @author.valid?
+      RequestJob.perform_later l_params if @author.valid?
+      render :new, status: :ok
+    else
+      render :new, status: 422
+    end
   end
 end

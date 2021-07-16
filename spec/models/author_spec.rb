@@ -8,6 +8,10 @@ RSpec.describe Author, type: :model do
                           email: 'gates@microsoft.com')
     end
 
+    it 'returns first_name=Bill&last_name=Gates when to_s invoked' do
+      expect(subject.to_s).to eql('first_name=Bill&last_name=Gates')
+    end
+
     it 'is valid with valid attributes' do
       expect(subject).to be_valid
     end
