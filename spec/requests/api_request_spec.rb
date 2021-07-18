@@ -1,50 +1,31 @@
 require 'rails_helper'
+require_relative '../../app/api/api'
 
-RSpec.describe 'Post request to /authors', type: :request do
-  it 'sends request with valid params and get status 200' do
-    post '/authors',
-         params: {
-           first_name: 'Bill',
-           last_name: 'Gates',
-           email: 'gatess@ll.cc'
-         }
-    expect(response).to have_http_status(:ok)
+RSpec.describe 'Post request to /authors', type: :request, vcr: { record: :new_episodes } do
+  it 'sends HTTP request with valid data and receives response status 201' do
+    data = {
+      first_name: 'Tim',
+      last_name: 'Cooper',
+      email: 'tim@cooper.cm'
+    }
+    expect(Api.send_data(data).status).to eql(201)
   end
 
-  it 'sends request with invalid params and get status 422' do
-    post '/authors', params: nil
-    expect(response).to have_http_status(422)
+  it 'sends HTTP request with invalid data and raises Faraday::UnprocessableEntityError(422)' do
+    data = {
+      first_name: nil,
+      last_name: nil,
+      email: 'nil@nil.com'
+    }
+    expect { Api.send_data(data) }.to raise_error(Faraday::UnprocessableEntityError)
+  end
 
-    post '/authors',
-         params: {
-           first_name: nil,
-           last_name: 'Gates',
-           email: 'gatess@ll.cc'
-         }
-    expect(response).to have_http_status(422)
-
-    post '/authors',
-         params: {
-           first_name: 'Bill',
-           last_name: nil,
-           email: 'gatess@ll.cc'
-         }
-    expect(response).to have_http_status(422)
-
-    post '/authors',
-         params: {
-           first_name: 'Bill',
-           last_name: 'Gates',
-           email: nil
-         }
-    expect(response).to have_http_status(422)
-
-    post '/authors',
-         params: {
-           first_name: 'Bill',
-           last_name: 'Gates',
-           email: 'gatess@'
-         }
-    expect(response).to have_http_status(422)
+  it 'sends HTTP request with already in use email and raises Faraday::UnprocessableEntityError(422)' do
+    data = {
+      first_name: 'Some',
+      last_name: 'One',
+      email: 'tim@cooper.cm'
+    }
+    expect { Api.send_data(data) }.to raise_error(Faraday::UnprocessableEntityError)
   end
 end

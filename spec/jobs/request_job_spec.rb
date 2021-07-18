@@ -18,7 +18,7 @@ RSpec.describe RequestJob, type: :job do
       ActiveJob::Base.queue_adapter = :test
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
       expect do
-        RequestJob.perform_later(first_name: 'Bill', last_name: 'Gates', email: 'gates@ccc.com')
+        RequestJob.perform_later
       end.to have_performed_job.on_queue('default')
     end
   end
