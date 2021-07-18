@@ -2,7 +2,7 @@ require 'faraday'
 
 class RequestJob < ApplicationJob
   queue_as :default
-  retry_on Faraday::TimeoutError
+  sidekiq_options retry: 5
 
   rescue_from(Faraday::ClientError) do |e|
     data = JSON.parse(e.response[:body])['data'][0]
