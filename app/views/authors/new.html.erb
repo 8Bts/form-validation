@@ -1,12 +1,25 @@
-<%= form_tag '/authors' do %>
-  <%=label_tag 'first_name' %>
-  <%=text_field_tag 'first_name' %>
+<div>
+  <% if flash[:success] %>
+    <%= flash[:success] %>
+  <% else %>
+    <ul>
+      <% @author.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+<div>
+  <%= form_tag '/authors' do %>
+    <%=label_tag 'first_name', nil, class: 'form-label' %>
+    <%=text_field_tag 'first_name', nil, class: 'form-control' %>
 
-  <%=label_tag 'last_name' %>
-  <%=text_field_tag 'last_name' %>
+    <%=label_tag 'last_name' %>
+    <%=text_field_tag 'last_name' %>
 
-  <%=label_tag 'email' %>
-  <%=text_field_tag 'email' %>
+    <%=label_tag 'email' %>
+    <%=text_field_tag 'email' %>
 
-  <%= submit_tag 'Submit' %>
-<% end %>
+    <%= submit_tag 'Submit' %>
+  <% end %>
+</div>

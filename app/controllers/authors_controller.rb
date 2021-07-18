@@ -13,8 +13,9 @@ class AuthorsController < ActionController::Base
     @author = Author.new(l_params)
 
     if @author.valid?
-      RequestJob.perform_later l_params if @author.valid?
-      render :new, status: :ok
+      RequestJob.perform_later l_params
+      flash[:success] = 'User data has been sent!'
+      render :new, status: 201
     else
       render :new, status: 422
     end
