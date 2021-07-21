@@ -12,11 +12,14 @@ class RequestJob < ApplicationJob
     puts ''
   end
 
-  rescue_from(Faraday::ServerError) do |exception|
-    puts "Error ##{exception.response[:status]}"
+  rescue_from(Faraday::ServerError) do |e|
+    puts ''
+    puts "Error ##{e.response[:status]}. #{data['field']} #{data['message']}"
+    puts ''
   end
 
   def perform(params = {})
-    Api.send_data(params)
+    response = Api.send_data(params)
+    puts response.body
   end
 end

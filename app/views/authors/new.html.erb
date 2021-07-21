@@ -10,16 +10,10 @@
   <% end %>
 </div>
 <div>
-  <%= form_tag '/authors' do %>
-    <%=label_tag 'first_name', nil, class: 'form-label' %>
-    <%=text_field_tag 'first_name', nil, class: 'form-control' %>
-
-    <%=label_tag 'last_name' %>
-    <%=text_field_tag 'last_name' %>
-
-    <%=label_tag 'email' %>
-    <%=text_field_tag 'email' %>
-
-    <%= submit_tag 'Submit' %>
+  <%= form_for :author, url: authors_path do |f| %>
+    First name: <%= f.text_field :first_name %><br />
+    Last name : <%= f.text_field :last_name %><br />
+    Email : <%= f.text_field :email %><br />
+    <%= f.submit %>
   <% end %>
 </div>
