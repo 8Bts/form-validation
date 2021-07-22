@@ -1,12 +1,19 @@
-<%= form_tag '/authors' do %>
-  <%=label_tag 'first_name' %>
-  <%=text_field_tag 'first_name' %>
-
-  <%=label_tag 'last_name' %>
-  <%=text_field_tag 'last_name' %>
-
-  <%=label_tag 'email' %>
-  <%=text_field_tag 'email' %>
-
-  <%= submit_tag 'Submit' %>
-<% end %>
+<div>
+  <% if flash[:success] %>
+    <%= flash[:success] %>
+  <% else %>
+    <ul>
+      <% @author.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+<div>
+  <%= form_for :author, url: authors_path do |f| %>
+    First name: <%= f.text_field :first_name %><br />
+    Last name : <%= f.text_field :last_name %><br />
+    Email : <%= f.text_field :email %><br />
+    <%= f.submit %>
+  <% end %>
+</div>

@@ -22,7 +22,7 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'faraday'
-
+gem 'sidekiq'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -48,12 +48,16 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
+  gem 'rails-controller-testing'
   gem 'rexml'
   gem 'rspec'
   gem 'rspec-rails', '>=3.9.0'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 5.0'
+  gem 'vcr'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
