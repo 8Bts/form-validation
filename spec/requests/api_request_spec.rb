@@ -1,5 +1,4 @@
 require 'rails_helper'
-require_relative '../../app/api/api'
 
 RSpec.describe 'Post request to /authors', type: :request, vcr: { record: :new_episodes } do
   it 'sends HTTP request with valid data and receives response status 201' do

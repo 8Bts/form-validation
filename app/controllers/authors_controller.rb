@@ -8,7 +8,7 @@ class AuthorsController < ActionController::Base
 
     if @author.valid?
       RequestJob.perform_later author_params
-      flash.now[:success] = 'User data has been sent!'
+      flash[:success] = 'User data has been sent!'
       render :new, status: 201
     else
       render :new, status: 422
