@@ -31,9 +31,9 @@ RSpec.describe AuthorsController, type: :controller do
         post :create,
              params: {
                author: {
-                 first_name: 'Bill',
-                 last_name: 'Gates',
-                 email: 'gatess@ll.cc'
+                 first_name: 'King',
+                 last_name: 'James',
+                 email: 'king@sss.cc'
                }
              }
       end

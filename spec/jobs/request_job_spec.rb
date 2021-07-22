@@ -1,25 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe RequestJob, type: :job do
-  describe 'execution with #perform_later' do
-    it 'makes async http request' do
-      ActiveJob::Base.queue_adapter = :test
-      expect { RequestJob.perform_later }.to have_enqueued_job
-    end
+  include ActiveJob::TestHelper
 
-    it 'makes async http request with given params' do
-      ActiveJob::Base.queue_adapter = :test
-      expect do
-        RequestJob.perform_later(first_name: 'Bill', last_name: 'Gates', email: 'gates@ccc.com')
-      end.to have_enqueued_job.with(first_name: 'Bill', last_name: 'Gates', email: 'gates@ccc.com')
-    end
+  data = {
+    first_name: 'Tony',
+    last_name: 'Cooper',
+    email: 'tony@cooper.cm'
+  }
 
-    it 'performs job asynchronously' do
-      ActiveJob::Base.queue_adapter = :test
-      ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
-      expect do
-        RequestJob.perform_later
-      end.to have_performed_job.on_queue('default')
+  subject(:job) { described_class.perform_later(data) }
+
+  it 'calls Api.send_data when performed' do
+    VCR.turned_off do
+      stub_request(:post, "https://gorest.co.in/public/v1/users?access-token=#{Api::AUTH_KEY}")
+        .with(
+          body: '{"name":"Tony Cooper","gender":"male","email":"tony@cooper.cm","status":"active"}',
+          headers: {
+            'Accept' => '*/*',
+            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'Content-Type' => 'application/json',
+            'User-Agent' => 'Faraday v1.5.1'
+          }
+        )
+        .to_return(status: 201, body: '', headers: {})
+      expect(Api).to receive(:send_data).with(data)
+      perform_enqueued_jobs { job }
     end
   end
 end

@@ -19,7 +19,6 @@ class RequestJob < ApplicationJob
   end
 
   def perform(params = {})
-    response = Api.send_data(params)
-    puts response.body
+    Api.send_data(params)
   end
 end
